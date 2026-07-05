@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // components/VoiceRecorder.js
+      import { useState, useEffect, useRef } from "react";
+
+      export default function VoiceRecorder() {
+        const [transcript, setTranscript] = useState("");
+        const recognitionRef = useRef(null);
+
+        const startListening = () => {
+          const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+          recognitionRef.current = new SpeechRecognition();
+          recognitionRef.current.continuous = true;
+          recognitionRef.current.lang = "vi-VN";
+          recognitionRef.current.interimResults = true;
+
+          recognitionRef.current.onresult = (event) => {
+            let currentTranscript = "";
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+              currentTranscript += event.results[i][0].transcript;
+            }
+            setTranscript(currentTranscript);
+          };
+
+          recognitionRef.current.start();
+        };
+
+        return (
+          <div>
+            <button onClick={startListening}>Bắt đầu ghi âm</button>
+            <div className="p-4 border mt-4">{transcript}</div>
+          </div>
+        );
+      }
+    </script>
+  </body>
+</html>

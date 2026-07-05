@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Translate with Gemini</title>
+  <link rel="stylesheet" href="style.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+  <!-- History Sidebar -->
+  <aside class="history-sidebar" id="historySidebar">
+    <div class="sidebar-header">
+      <h2>History</h2>
+      <button id="closeSidebarBtn" class="icon-btn" title="Close"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <ul id="historyList" class="history-list">
+      <!-- History items will be injected here -->
+    </ul>
+  </aside>
+
+  <div class="app-container" id="appContainer">
+    <header class="app-header">
+      <div class="logo">
+        <button id="toggleSidebarBtn" class="icon-btn" title="View History"><span class="material-symbols-outlined">menu</span></button>
+        <span class="material-symbols-outlined" style="margin-left: 8px;">translate</span>
+        <h1>Live Translate</h1>
+      </div>
+      <div class="header-controls">
+        <div class="input-group">
+          <span class="material-symbols-outlined icon">key</span>
+          <input type="password" id="apiKey" placeholder="Enter Gemini API Key..." />
+        </div>
+        <button id="connectBtn" class="btn primary">Connect</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="translation-controls">
+          <div class="language-selector">
+            <span class="material-symbols-outlined">translate</span>
+            <select id="sourceLang" title="Source Language">
+              <option value="auto">Auto Detect</option>
+              <option value="en">English</option>
+              <option value="vi">Vietnamese</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="ja">Japanese</option>
+              <option value="ko">Korean</option>
+              <option value="zh">Chinese</option>
+              <option value="ru">Russian</option>
+            </select>
+          </div>
+          
+          <span class="material-symbols-outlined" style="color: var(--text-secondary); margin: 0 8px;">arrow_forward</span>
+
+          <div class="language-selector">
+            <span class="material-symbols-outlined">translate</span>
+            <select id="targetLang" title="Target Language">
+              <option value="vi">Vietnamese</option>
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="ja">Japanese</option>
+              <option value="ko">Korean</option>
+              <option value="zh">Chinese</option>
+              <option value="pl">Polish</option>
+              <option value="ru">Russian</option>
+            </select>
+          </div>
+      </div>
+
+      <div class="split-view-container">
+        <div class="transcript-pane" id="sourceLog">
+          <div class="pane-header">Source Language (You)</div>
+          <!-- Input transcripts will be appended here -->
+        </div>
+        <div class="transcript-pane" id="targetLog">
+          <div class="pane-header">Target Language (Gemini)</div>
+          <!-- Output transcripts will be appended here -->
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <button id="micBtn" class="mic-btn" disabled>
+            <span class="material-symbols-outlined">mic</span>
+          </button>
+          <button id="saveBtn" class="btn secondary" title="Save Conversation History" style="height: 48px; border-radius: 24px; padding: 0 20px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined">download</span> Save History
+          </button>
+        </div>
+        <span id="statusText" class="status-text">Disconnected</span>
+      </div>
+    </main>
+  </div>
+
+  <script src="audio-handler.js?v=11"></script>
+  <script src="live-api.js?v=11"></script>
+  <script src="app.js?v=11"></script>
+</body>
+</html>
